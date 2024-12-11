@@ -1,6 +1,7 @@
 import hashlib
 import base64
-from utility import generate_salt
+from src.utility import generate_salt, hash_password
+
 
 class Account:
     def __init__(self, account_id: int, login: str, password: str, salt: str, email: str, confirmed: bool, phone: str):
@@ -15,14 +16,21 @@ class Account:
         if salt is None or salt == '':
             self.salt = generate_salt()
 
+        self.password = hash_password(password, self.salt)
+
     def __eq__(self, other):
         return self.account_id == other.account_id
 
     def compare_password(self, password: str) -> bool:
-        t_sha = hashlib.sha512()
-        t_sha.update(password + self.salt)
-        hashed_password = base64.urlsafe_b64encode(t_sha.digest())
+        print(f'password: {password}')
+        print(f'salt: {self.salt}')
+        hashed_password = hash_password(password, self.salt)
+        print(f'hashed_password: {hashed_password}')
         return self.password == hashed_password
+
+    def compare_hashed_password(self, hashed_password: str) -> bool:
+        return self.password == hashed_password
+
 
 
 

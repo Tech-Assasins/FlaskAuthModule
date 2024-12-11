@@ -1,6 +1,7 @@
-import hashlib
-import base64
-import uuid
+import bcrypt
 
 def generate_salt() -> str:
-    return base64.urlsafe_b64encode(uuid.uuid4().bytes)
+    return bcrypt.gensalt()
+
+def hash_password(password: str, salt: str) -> str:
+    return bcrypt.hashpw(password.encode(), salt)
