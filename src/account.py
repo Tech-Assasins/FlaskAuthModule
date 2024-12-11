@@ -22,10 +22,7 @@ class Account:
         return self.account_id == other.account_id
 
     def compare_password(self, password: str) -> bool:
-        print(f'password: {password}')
-        print(f'salt: {self.salt}')
         hashed_password = hash_password(password, self.salt)
-        print(f'hashed_password: {hashed_password}')
         return self.password == hashed_password
 
     def compare_hashed_password(self, hashed_password: str) -> bool:
