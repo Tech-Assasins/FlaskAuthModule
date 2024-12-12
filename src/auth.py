@@ -12,7 +12,7 @@ class Auth:
         account = self.account_provider.get_account_by_login(login)
         if account is None:
             return -1, None
-        if account.password != password:
+        if account.compare_password(password) is False:
             return -2, None
         return 0, account
 
