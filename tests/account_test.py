@@ -2,7 +2,7 @@ import unittest
 from src.account import Account
 
 class AccountTest(unittest.TestCase):
-    def test_account(self):
+    def test_account_constructor(self):
         account = Account(0, 'login', 'password', '', 'email', False, 'phone')
         self.assertEqual(account.account_id, 0)
         self.assertEqual(account.login, 'login')

@@ -1,6 +1,7 @@
 from tests.account_test import AccountTest
+from tests.auth_test import AuthTest
 
 
 if __name__ == '__main__':
     account_test = AccountTest()
-    print('All tests passed')
+    auth_test = AuthTest()

@@ -1,5 +1,5 @@
-from account_provider import AccountProvider
-from account import Account
+from src.account_provider import AccountProvider
+from src.account import Account
 
 class Auth:
     def __init__(self, account_provider: AccountProvider):
@@ -17,5 +17,5 @@ class Auth:
         return 0, account
 
     def register(self, login: str, password: str, email: str, phone: str) -> Account:
-        account = Account(0, login, password, '', email, False, phone)
+        account = Account(self.account_provider.get_next_id(), login, password, '', email, False, phone)
         return account
