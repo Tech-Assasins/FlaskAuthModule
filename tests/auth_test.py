@@ -30,6 +30,6 @@ class AuthTest(unittest.TestCase):
         self.assertEqual(account.phone, 'phone3')
         self.assertFalse(account.confirmed)
         self.assertNotEqual(account.salt, '')
-        self.assertNotEqual(account.password, 'password3')
-        self.assertTrue(account.compare_password('password3'))
+        self.assertNotEqual(account.password_hash, 'password3')
+        self.assertFalse(account.compare_password('password3'))
 

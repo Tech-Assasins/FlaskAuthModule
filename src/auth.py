@@ -1,5 +1,7 @@
 from src.account_provider import AccountProvider
 from src.account import Account
+from src.utility import generate_salt, hash_password
+
 
 class Auth:
     def __init__(self, account_provider: AccountProvider):
@@ -17,5 +19,8 @@ class Auth:
         return 0, account
 
     def register(self, login: str, password: str, email: str, phone: str) -> Account:
-        account = Account(self.account_provider.get_next_id(), login, password, '', email, False, phone)
+        salt = generate_salt().encode()
+        hashed_password = hash_password(password.encode(), salt)
+        account = Account(0, login, hashed_password, generate_salt(), email, False, phone)
+        account = self.account_provider.add_account(account)
         return account
