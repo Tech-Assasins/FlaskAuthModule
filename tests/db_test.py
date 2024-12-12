@@ -29,3 +29,10 @@ class DbTest(unittest.TestCase):
         result, account = auth.login('testLogin', 'testPassword')
         self.assertEqual(0, result, "Login failed")
 
+    def test_sql_injection(self):
+        conn = pyodbc.connect('DRIVER={MySQL ODBC 9.1 ANSI Driver};SERVER=localhost;DATABASE=test;UID=test;PWD=test')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM accounts WHERE login = 'notExistAccountInDb' OR 1=1")
+        acc = cursor.fetchone()
+        self.assertIsNone(acc, "SQL injection is possible")
+
